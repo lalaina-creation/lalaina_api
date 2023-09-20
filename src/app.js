@@ -15,6 +15,7 @@ const app = express();
 app.use(cors());
 
 app.locals.users = {};
+app.use(express.json({ limit: '50mb' }));
 
 //Logs
 const logger = winston.createLogger({
@@ -49,35 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', router);
 
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads"); // Files will be stored in the 'uploads' directory
-  },
-  filename: function (req, file, cb) {
-    // Generate a unique filename by adding a timestamp
-    const timestamp = Date.now();
-    const extension = path.extname(file.originalname);
-    const filename = `${timestamp}${extension}`;
-    cb(null, filename);
-  },
-});
-
-// Create an instance of the multer middleware with the defined storage options
-const upload = multer({ storage: storage });
-
-app.use("/api/uploads", express.static("uploads"));
-
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No file provided" });
-  }
-
-  const fileUrl = `/uploads/${req.file.filename}`;
-
-  // You can save the fileUrl to a database or perform other actions here
-
-  res.status(200).json({ fileUrl });
-});
+//make uploads folder public
+app.use('/uploads', express.static('uploads'));
 
 
 // catch 404 and forward to error handler

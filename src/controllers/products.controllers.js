@@ -1,4 +1,7 @@
-
+const colors = require('colors');
+const { connection } = require('../db');
+const path = require('path');
+const fs = require('fs');
 
 module.exports = {
 
@@ -20,6 +23,34 @@ module.exports = {
             res.json(results);
         });
 
+    },
 
-    }
+    addProduct: async (req, res) => {
+        console.log(colors.cyan('addProduct()'));
+        // console.log(colors.cyan('req.body:'), req.body);
+        const { title, description, price, category } = req.body;
+        console.log(colors.cyan('req.file:'), req.file);
+        const imagePath = req.file ? req.file.path : null; // Get the uploaded image path
+      
+        const product = {
+          title,
+          description,
+          price,
+          category,
+          image: imagePath, // Set the image path in the product data
+        };
+      
+        connection.query('INSERT INTO Products SET ?', product, (err, results) => {
+          if (err) {
+            console.error('Error querying the database:', err);
+            res.status(500).send('Error querying the database');
+            return;
+          }
+      
+          res.json(results);
+        });
+      },
+      
+
+
 }

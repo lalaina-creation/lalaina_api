@@ -1,12 +1,31 @@
 const { Router } = require('express');
 const router = Router();
+const multer  = require('multer')
+// const upload = multer({ dest: 'uploads/' })
 
-const { getProducts } = require('../controllers/products.controllers');
-
+const { getProducts, addProduct } = require('../controllers/products.controllers');
 
 router.get('/getProducts', getProducts);
 
+// Configure multer to save files to the 'uploads' folder with a timestamped filename
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // Save files to the 'uploads' folder
+    },
+    filename: function (req, file, cb) {
+      const timestamp = Date.now(); // Generate a timestamp
+      console.log('file.originalname', file.originalname);
+      const extension = file.originalname; // Get the file extension
+      const filename = `${timestamp}.${extension}`; // Create a timestamped filename
+      cb(null, filename);
+    },
+  });
 
-
+  const upload = multer({ storage: storage });
+  
+  router.get('/getProducts', getProducts);
+  
+  // Use the upload middleware for handling image uploads
+  router.post('/addProduct', upload.single('image'), addProduct);
 
 module.exports = router;

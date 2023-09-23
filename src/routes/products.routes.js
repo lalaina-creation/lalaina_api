@@ -14,7 +14,6 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
       const timestamp = Date.now(); // Generate a timestamp
-      console.log('file.originalname', file.originalname);
       const extension = file.originalname; // Get the file extension
       const filename = `${timestamp}.${extension}`; // Create a timestamped filename
       cb(null, filename);

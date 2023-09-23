@@ -47,7 +47,7 @@ module.exports = {
             return;
           }
       
-          res.json(results);
+          res.status(201).send('Article ajouté avec succès !');
         });
       },
       

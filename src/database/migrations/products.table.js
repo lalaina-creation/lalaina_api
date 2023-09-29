@@ -13,7 +13,8 @@ exports.up = function(knex) {
         table.text('description', 255).nullable();
         table.string('price', 255).notNullable();
         table.string('image', 255).notNullable();
-        table.string('category', 255).nullable();
+        table.string('category', 255).nullable(); //Hommes /Femmes / Enfants
+        table.string('type', 255).nullable(); //Cachemir / robes / Pyjamas ...
         // table.string('colors', 255).notNullable();
         // table.string('sizes', 255).notNullable();
         table.timestamps(true, true);

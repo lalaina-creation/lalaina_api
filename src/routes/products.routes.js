@@ -5,7 +5,6 @@ const multer  = require('multer')
 
 const { getProducts, addProduct } = require('../controllers/products.controllers');
 
-router.get('/getProducts', getProducts);
 
 // Configure multer to save files to the 'uploads' folder with a timestamped filename
 const storage = multer.diskStorage({
@@ -21,6 +20,8 @@ const storage = multer.diskStorage({
   });
 
   const upload = multer({ storage: storage });
+  
+
   
   router.get('/getProducts', getProducts);
   

@@ -7,7 +7,9 @@ module.exports = {
 
     getProducts: async (req, res) => {
         console.log(colors.cyan('getProducts()'))
-        connection.query('SELECT * FROM products', (err, results) => {
+        const sql = `SELECT * FROM Products`;
+
+        connection.query(sql, (err, results) => {
             if (err) {
                 console.error('Error querying the database:', err);
                 res.status(500).send('Error querying the database');
@@ -16,10 +18,13 @@ module.exports = {
     
             if (results.length === 0) {
                 // Handle the case where no ticket was found with the given ID
-                res.status(404).send('tags not found');
+                res.status(404).send('Products not found');
                 return;
             }
-
+            //transoform product.attributes to array
+            results.forEach(product => {
+                product.attributes = product.attributes.split(',');
+            });
             res.json(results);
         });
 
@@ -27,8 +32,8 @@ module.exports = {
 
     addProduct: async (req, res) => {
         console.log(colors.cyan('addProduct()'));
-        // console.log(colors.cyan('req.body:'), req.body);
-        const { title, description, price, category, type } = req.body;
+        console.log(colors.cyan('req.body:'), req.body);
+        const { title, description, price, category, attributes, gender, sizes } = req.body;
         console.log(colors.cyan('req.file:'), req.file);
         const imagePath = req.file ? req.file.path : null; // Get the uploaded image path
       
@@ -36,9 +41,12 @@ module.exports = {
           title,
           description,
           price,
+          image_url: imagePath,
           category,
-          type,
-          image: imagePath, // Set the image path in the product data
+          attributes,
+          gender,
+          sizes
+
         };
       
         connection.query('INSERT INTO products SET ?', product, (err, results) => {

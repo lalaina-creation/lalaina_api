@@ -49,7 +49,7 @@ module.exports = {
 
         };
       
-        connection.query('INSERT INTO products SET ?', product, (err, results) => {
+        connection.query('INSERT INTO Products SET ?', product, (err, results) => {
           if (err) {
             console.error('Error querying the database:', err);
             res.status(500).send('Error querying the database');

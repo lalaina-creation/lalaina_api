@@ -7,7 +7,7 @@ module.exports = {
 
     getProducts: async (req, res) => {
         console.log(colors.cyan('getProducts()'))
-        const sql = `SELECT * FROM Products`;
+        const sql = `SELECT * FROM products`;
 
         connection.query(sql, (err, results) => {
             if (err) {
@@ -49,7 +49,7 @@ module.exports = {
 
         };
       
-        connection.query('INSERT INTO Products SET ?', product, (err, results) => {
+        connection.query('INSERT INTO products SET ?', product, (err, results) => {
           if (err) {
             console.error('Error querying the database:', err);
             res.status(500).send('Error querying the database');

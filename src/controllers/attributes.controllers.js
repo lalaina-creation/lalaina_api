@@ -6,7 +6,7 @@ module.exports = {
    getAttributes: async (req, res) => {
          console.log(colors.cyan('getAttributes()'))
 
-        const sql = `SELECT * FROM Attributes`;
+        const sql = `SELECT * FROM attributes`;
 
         connection.query(sql, (err, results) => {
             if (err) {

@@ -6,7 +6,7 @@ module.exports = {
     getCategories: async (req, res) => {
         console.log(colors.cyan('getCategories()'))
 
-        const sql = `SELECT * FROM Categories`;
+        const sql = `SELECT * FROM categories`;
 
         connection.query(sql, (err, results) => {
             if (err) {

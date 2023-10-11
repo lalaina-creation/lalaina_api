@@ -1,5 +1,5 @@
 const colors = require('colors');
-const { connection } = require('../db');
+const { query } = require('../db');
 const path = require('path');
 const fs = require('fs');
 
@@ -9,7 +9,7 @@ module.exports = {
         console.log(colors.cyan('getProducts()'))
         const sql = `SELECT * FROM products`;
 
-        connection.query(sql, (err, results) => {
+        query(sql, (err, results) => {
             if (err) {
                 console.error('Error querying the database:', err);
                 res.status(500).send('Error querying the database');
@@ -49,7 +49,7 @@ module.exports = {
 
         };
       
-        connection.query('INSERT INTO products SET ?', product, (err, results) => {
+        query('INSERT INTO products SET ?', product, (err, results) => {
           if (err) {
             console.error('Error querying the database:', err);
             res.status(500).send('Error querying the database');

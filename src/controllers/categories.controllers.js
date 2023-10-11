@@ -1,5 +1,5 @@
 const colors = require('colors');
-const { connection } = require('../db');
+const { query } = require('../db');
 
 module.exports = {
 
@@ -8,7 +8,7 @@ module.exports = {
 
         const sql = `SELECT * FROM categories`;
 
-        connection.query(sql, (err, results) => {
+        query(sql, (err, results) => {
             if (err) {
                 console.error('Error querying the database:', err);
                 res.status(500).send('Error querying the database');

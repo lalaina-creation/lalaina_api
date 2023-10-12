@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const colors = require('colors');
 
 const connection = mysql.createConnection({
@@ -6,6 +6,11 @@ const connection = mysql.createConnection({
   user: 'root',
   password: 'root',
   database: 'lalaina_creation',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  connectTimeout: 10000,
+  idleTimeout: 60000,
 });
 
 // Connect to the database

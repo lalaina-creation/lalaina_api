@@ -14,7 +14,7 @@ exports.up = function(knex) {
         table.decimal('price', 10, 2).notNullable(); 
         table.string('image_url', 255).notNullable();
 
-        table.string('category').nullable(); // Hommes / Femmes / Enfants / Accessoires
+        table.string('category').notNullable(); // Hommes / Femmes / Enfants / Accessoires
         table.string('matter', 255).notNullable(); //Cachemire / Coton / Velours / Laine / Lin
         table.string('col', 255).notNullable(); // V / Rond / Roulé / Carré / Camioneur / à Boutons / Cheminé
         table.string('threads', 255).notNullable(); // 2 fils / 3 fils / 4 fils

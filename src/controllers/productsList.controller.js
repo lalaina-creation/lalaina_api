@@ -3,10 +3,10 @@ const { query } = require('../db');
 
 module.exports = {
 
-   getAttributes: async (req, res) => {
-         console.log(colors.cyan('getAttributes()'))
+   getProductsList: async (req, res) => {
+         console.log(colors.cyan('getProductsList()'))
 
-        const sql = `SELECT * FROM attributes`;
+        const sql = `SELECT * FROM productslist`;
 
         query(sql, (err, results) => {
             if (err) {
@@ -17,7 +17,7 @@ module.exports = {
     
             if (results.length === 0) {
                 // Handle the case where no ticket was found with the given ID
-                res.status(404).send('Attributes not found');
+                res.status(404).send('productsList not found');
                 return;
             }
 

@@ -22,19 +22,16 @@ module.exports = {
                 return;
             }
             //transoform product.attributes to array
-            results.forEach(product => {
-                product.attributes = product.attributes.split(',');
-            });
+           
             res.json(results);
         });
 
     },
 
     addProduct: async (req, res) => {
+      try {
         console.log(colors.cyan('addProduct()'));
-        console.log(colors.cyan('req.body:'), req.body);
-        const { title, description, price, category, attributes, gender, sizes } = req.body;
-        console.log(colors.cyan('req.file:'), req.file);
+        const { title, description, price, category, matter, col, threads, size, color, stock_quantity } = req.body;
         const imagePath = req.file ? req.file.path : null; // Get the uploaded image path
       
         const product = {
@@ -43,22 +40,22 @@ module.exports = {
           price,
           image_url: imagePath,
           category,
-          attributes,
-          gender,
-          sizes
-
+          matter,
+          col,
+          threads,
+          size,
+          color,
+          stock_quantity
         };
-      
-        query('INSERT INTO products SET ?', product, (err, results) => {
-          if (err) {
-            console.error('Error querying the database:', err);
-            res.status(500).send('Error querying the database');
-            return;
-          }
-      
-          res.status(201).send('Article ajouté avec succès !');
-        });
-      },
+        console.log(colors.cyan('product:'), product);
+    
+        await query('INSERT INTO products SET ?', [product]);
+        return res.status(201).send('Product added successfully!');
+      } catch (error) {
+        console.error('Error querying the database:', error);
+        return res.status(500).send('Error querying the database');
+      }
+    }
       
 
 

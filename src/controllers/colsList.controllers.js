@@ -3,10 +3,10 @@ const { query } = require('../db');
 
 module.exports = {
 
-    getCategories: async (req, res) => {
-        console.log(colors.cyan('getCategories()'))
+    getColsList: async (req, res) => {
+        console.log(colors.cyan('getColsList()'))
 
-        const sql = `SELECT * FROM categories`;
+        const sql = `SELECT * FROM colslist`;
 
         query(sql, (err, results) => {
             if (err) {
@@ -17,7 +17,7 @@ module.exports = {
     
             if (results.length === 0) {
                 // Handle the case where no ticket was found with the given ID
-                res.status(404).send('Categories not found');
+                res.status(404).send('colsList not found');
                 return;
             }
 

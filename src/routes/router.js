@@ -1,15 +1,17 @@
 const { Router } = require('express');
 
 const ProductsRoutes = require('./products.routes');
-const CategoriesRoutes = require('./categories.routes');
-const AttributesRoutes = require('./attributes.routes');
+const MattersListRoutes = require('./mattersList.routes');
+const ColsListRoutes = require('./colsList.routes');
+const ProductsListRoutes = require('./productsList.routes');
 
 const router = Router();
 
 
 router.use('/products', ProductsRoutes);
-router.use('/categories', CategoriesRoutes);
-router.use('/attributes', AttributesRoutes);
+router.use('/mattersList', MattersListRoutes);
+router.use('/colsList', ColsListRoutes);
+router.use('/productsList', ProductsListRoutes);
 
 
 module.exports = router;

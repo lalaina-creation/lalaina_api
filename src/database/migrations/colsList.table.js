@@ -9,19 +9,19 @@
 exports.up = function(knex) {
     return knex.schema.createTable('colsList', function (table) {
         table.increments('id').primary();
-        table.string('col_title', 255).notNullable();
+        table.string('title', 255).notNullable();
         table.timestamps(true, true);
     })
     .then(() => {
         return knex('colsList').insert([
             // V / Rond / Roulé / Carré / Camioneur / à Boutons / Cheminé
-            { col_title: 'V' },
-            { col_title: 'Rond' },
-            { col_title: 'Roulé' },
-            { col_title: 'Carré' },
-            { col_title: 'Camioneur' },
-            { col_title: 'à Boutons' },
-            { col_title: 'Cheminé' },
+            { title: 'V' },
+            { title: 'Rond' },
+            { title: 'Roulé' },
+            { title: 'Carré' },
+            { title: 'Camioneur' },
+            { title: 'à Boutons' },
+            { title: 'Cheminé' },
         ]);
     });
 };

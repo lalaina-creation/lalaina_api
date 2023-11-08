@@ -9,17 +9,17 @@
 exports.up = function(knex) {
     return knex.schema.createTable('mattersList', function (table) {
         table.increments('id').primary();
-        table.string('matter_title', 255).notNullable();
+        table.string('title', 255).notNullable();
         table.timestamps(true, true);
     })
     .then(() => {
         return knex('mattersList').insert([
             // Cachemire / Coton / Velours / Laine / Lin
-            { matter_title: 'Cachemire' },
-            { matter_title: 'Coton' },
-            { matter_title: 'Velours' },
-            { matter_title: 'Laine' },
-            { matter_title: 'Lin' },
+            { title: 'Cachemire' },
+            { title: 'Coton' },
+            { title: 'Velours' },
+            { title: 'Laine' },
+            { title: 'Lin' },
         ]);
     });
 };

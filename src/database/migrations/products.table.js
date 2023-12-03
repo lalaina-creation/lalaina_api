@@ -12,7 +12,7 @@ exports.up = function(knex) {
         table.string('title', 255).notNullable(); //Pull / Cardigan zippé / Pyjama / Chemise / Caleçon / Pull manches bouffantes / Pull ouvert / Cardigan / Cardigan à poche / Oversize / Crop top / Crop top rallongé / Poncho / Poncho ouvert / Pantalon / Robe / Jupe / Short / Ensembles / Bob / Grenouillère / Echarpe PM / Echarpe MM / Echarpe GM / Echarpe rayée MM / Echarpe rayée GM / Etole / Cape / Gants / Mitaines / Bonnets / Tour de cou
         table.text('description').nullable();
         table.decimal('price', 10, 2).notNullable(); 
-        table.string('image_url', 255).notNullable();
+        table.string('images', 600).notNullable();
 
         table.string('category').notNullable(); // Hommes / Femmes / Enfants / Accessoires
         table.string('matter', 255).notNullable(); //Cachemire / Coton / Velours / Laine / Lin

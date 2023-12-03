@@ -26,6 +26,6 @@ const storage = multer.diskStorage({
   router.get('/getProducts', getProducts);
   
   // Use the upload middleware for handling image uploads
-  router.post('/addProduct', upload.single('image'), addProduct);
+  router.post('/addProduct', upload.array('images', 4), addProduct);
 
 module.exports = router;

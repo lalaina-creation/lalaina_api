@@ -21,7 +21,10 @@ module.exports = {
                 res.status(404).send('Products not found');
                 return;
             }
-            //transoform product.attributes to array
+            // transoform product.images to array
+            results.forEach(product => {
+                product.images = product.images.split(',');
+            });
            
             res.json(results);
         });
@@ -32,13 +35,18 @@ module.exports = {
       try {
         console.log(colors.cyan('addProduct()'));
         const { title, description, price, category, matter, col, threads, size, color, stock_quantity } = req.body;
-        const imagePath = req.file ? req.file.path : null; // Get the uploaded image path
+        // const imagePath = req.file ? req.file.path : null; // Get the uploaded image path
+        const imagePaths = req.files ? req.files.map(file => file.path) : [];
+        console.log(colors.cyan('images:'), imagePaths);
+
+        const imagePathsString = imagePaths.join(',');
+        console.log(colors.cyan('imagePathsString:'), imagePathsString);
       
         const product = {
           title,
           description,
           price,
-          image_url: imagePath,
+          images: imagePathsString,
           category,
           matter,
           col,

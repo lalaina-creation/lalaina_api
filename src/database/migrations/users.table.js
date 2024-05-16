@@ -15,7 +15,7 @@ exports.up = function(knex) {
     })
     .then(() => {
         return knex('users').insert([
-            { email: 'lalaina_creation@gmail.com', password: '$2y$10$VfqlASyKaZO7eNzC9pjws.3eS8fJ1ALVX0f6M/Zd1L6hEaTlzrJwe' },
+            { email: 'vlalaina@live.fr', password: '$2b$10$MSFmI6qNtCVjbjPGA6BqZ.hzqRCtvDzrazNbStf2fCtdbOo9ijL0m' },
         ]);
     });
 };

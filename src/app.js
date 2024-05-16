@@ -12,7 +12,12 @@ const router = require('./routes/router');
 const winston = require('winston');
 
 const app = express();
-app.use(cors());
+app.use(cors(
+  {
+    origin: '*',
+    methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
+  }
+));
 
 app.locals.users = {};
 app.use(express.json({ limit: '50mb' }));
@@ -52,6 +57,10 @@ app.use('/api', router);
 
 //make uploads folder public
 app.use('/uploads', express.static('uploads'));
+
+app.get('/', (req, res) => {
+  res.send('Lalaina API is running !');
+});
 
 
 // catch 404 and forward to error handler

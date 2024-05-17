@@ -14,7 +14,11 @@ const winston = require('winston');
 const app = express();
 app.use(cors(
   {
-    origin: '*',
+    origin: [
+      '*',
+      'https://lalaina-creation.thomas-jan.fr',
+      'https://lalaina-creation-front.thomas-jan.fr'
+    ],
     methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
   }
 ));

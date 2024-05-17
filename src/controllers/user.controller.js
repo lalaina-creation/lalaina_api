@@ -51,5 +51,30 @@ module.exports = {
             console.error(colors.red(error.message));
             res.status(500).send('Server error');
         }
-    }
+    },
+
+    getUser: async (req, res) => {
+        console.log(colors.cyan('getUser()'));
+        const token = req.header('auth-token');
+        console.log(colors.cyan('token:'), token);
+        if (!token) return res.status(401).send('Accès refusé');
+
+        try {
+            const verified = jwt.verify(token, process.env.JWT_SECRET);
+            console.log(colors.cyan('verified:'), verified);
+
+            const results = await query('SELECT * FROM users WHERE id = ?', [verified.id]);
+            console.log(colors.cyan('results:'), results);
+
+            if (results.length === 0) {
+                return res.status(404).send('Utilisateur non trouvé');
+            }
+
+            const user = results[0];
+            res.status(200).send({ auth: true, user });
+        } catch (error) {
+            console.error(colors.red(error.message));
+            res.status(500).send(error.message);
+        }
+    },
 };

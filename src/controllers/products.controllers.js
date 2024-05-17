@@ -63,8 +63,29 @@ module.exports = {
         console.error('Error querying the database:', error);
         return res.status(500).send('Error querying the database');
       }
-    }
-      
+    },
 
+    deleteProduct: async (req, res) => {
+      console.log(colors.cyan('deleteProduct()'))
+      const { id } = req.params;
+      if(!id || id === 'undefined') return res.status(400).send('Missing id');
+      
+      const sql = `DELETE FROM products WHERE id = ${id}`;
+      query(sql, (err, results) => {
+          if (err) {
+              console.error('Error querying the database:', err);
+              res.status(500).send('Error querying the database');
+              return;
+          }
+
+          if (results.affectedRows === 0) {
+              // Handle the case where no ticket was found with the given ID
+              res.status(404).send('Product not found');
+              return;
+          }
+
+          res.status(200).send('Product deleted successfully');
+      });
+    }
 
 }

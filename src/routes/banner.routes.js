@@ -4,6 +4,7 @@ const multer  = require('multer')
 const fs = require('fs');
 
 const { getBanner, editBanner, uploadImage } = require('../controllers/banner.controller');
+const verifyToken = require('../middlewares/verifyToken');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -27,7 +28,7 @@ const storage = multer.diskStorage({
 
 
 router.get('/', getBanner);
-router.put('/edit', editBanner);
-router.post('/upload', upload.single('file'), uploadImage);
+router.put('/edit', verifyToken, editBanner);
+router.post('/upload', verifyToken, upload.single('file'), uploadImage);
 
 module.exports = router;

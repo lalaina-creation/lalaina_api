@@ -23,6 +23,8 @@ exports.up = function(knex) {
         table.string('color', 255).nullable(); // Noir / Blanc / Jaune / Vert clair / Vert foncé / Kaki / Mauve / Violet / Rouge / Bordeau / Bleu clair / Bleu foncé / Orange / Camel / Rose
         
         table.integer('stock_quantity').nullable().defaultTo(1);
+        table.boolean('hand_wash').nullable().defaultTo(false);
+        table.boolean('ironing').nullable().defaultTo(false);
         table.timestamps(true, true);
     });
 };

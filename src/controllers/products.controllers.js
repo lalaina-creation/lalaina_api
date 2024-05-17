@@ -34,7 +34,7 @@ module.exports = {
     addProduct: async (req, res) => {
       try {
         console.log(colors.cyan('addProduct()'));
-        const { title, description, price, category, matter, col, threads, size, color, stock_quantity } = req.body;
+        const { title, description, price, category, matter, col, threads, size, color, stock_quantity, hand_wash, ironing } = req.body;
         // const imagePath = req.file ? req.file.path : null; // Get the uploaded image path
         const imagePaths = req.files ? req.files.map(file => file.path) : [];
         console.log(colors.cyan('images:'), imagePaths);
@@ -53,7 +53,10 @@ module.exports = {
           threads,
           size,
           color,
-          stock_quantity
+          stock_quantity,
+          //transform to boolean
+          hand_wash: hand_wash == 'true' ? true : false,
+          ironing: ironing == 'true' ? true : false
         };
         console.log(colors.cyan('product:'), product);
     

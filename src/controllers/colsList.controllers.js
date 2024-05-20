@@ -6,7 +6,7 @@ module.exports = {
     getColsList: async (req, res) => {
         console.log(colors.cyan('getColsList()'))
 
-        const sql = `SELECT * FROM colslist`;
+        const sql = `SELECT * FROM colsList`;
 
         query(sql, (err, results) => {
             if (err) {

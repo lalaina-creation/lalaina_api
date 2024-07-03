@@ -7,7 +7,7 @@ module.exports = {
 
     getProducts: async (req, res) => {
         console.log(colors.cyan('getProducts()'))
-        const sql = `SELECT * FROM products`;
+        const sql = `SELECT * FROM products ORDER BY id DESC`;
 
         query(sql, (err, results) => {
             if (err) {
@@ -28,7 +28,6 @@ module.exports = {
            
             res.json(results);
         });
-
     },
 
     addProduct: async (req, res) => {
@@ -66,6 +65,45 @@ module.exports = {
         console.error('Error querying the database:', error);
         return res.status(500).send('Error querying the database');
       }
+    },
+
+    updateProduct: async (req, res) => {
+      console.log(colors.cyan(`updateProduct(${req.params.id})`))
+      const { id } = req.params;
+      if(!id || id === 'undefined') return res.status(400).send('Missing id');
+      const { title, description, price, category, matter, col, threads, size, color, stock_quantity, hand_wash, ironing } = req.body;
+      const imagePaths = req.files ? req.files.map(file => file.path) : [];
+      console.log(colors.cyan('images:'), imagePaths);
+      const imagePathsString = imagePaths.join(',');
+      console.log(colors.cyan('imagePathsString:'), imagePathsString);
+      
+      const product = {
+        title,
+        description,
+        price,
+        images: imagePathsString,
+        category,
+        matter,
+        col,
+        threads,
+        size,
+        color,
+        stock_quantity,
+        //transform to boolean
+        hand_wash: hand_wash == 'true' ? true : false,
+        ironing: ironing == 'true' ? true : false
+      };
+      console.log(colors.cyan('product:'), product);
+      
+      try {
+        const sql = `UPDATE products SET ? WHERE id = ${id}`;
+        await query(sql, [product]);
+        return res.status(200).send('Product updated successfully!');
+      } catch (error) {
+        console.error('Error querying the database:', error);
+        return res.status(500).send('Error querying the database');
+      }
+      
     },
 
     deleteProduct: async (req, res) => {

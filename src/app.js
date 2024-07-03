@@ -16,6 +16,7 @@ app.use(cors(
   {
     origin: [
       '*',
+      'http://localhost:3000',
       'https://lalaina-creation.thomas-jan.fr',
       'https://lalaina-creation-front.thomas-jan.fr'
     ],

@@ -81,7 +81,6 @@ module.exports = {
         title,
         description,
         price,
-        images: imagePathsString,
         category,
         matter,
         col,
@@ -93,6 +92,7 @@ module.exports = {
         hand_wash: hand_wash == 'true' ? true : false,
         ironing: ironing == 'true' ? true : false
       };
+      if(imagePathsString) product.images = imagePathsString;
       console.log(colors.cyan('product:'), product);
       
       try {
